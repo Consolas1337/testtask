@@ -1942,6 +1942,125 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -6387,10 +6506,10 @@ __webpack_require__.r(__webpack_exports__);
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
-
+exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap);", ""]);
 
 // module
-exports.push([module.i, ".comments-container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0e0e10;\n  height: auto;\n}\n.comments-container .comments {\n  background-color: #17171a;\n  width: 1300px;\n  height: 1080px;\n}", ""]);
+exports.push([module.i, ".comments-container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0e0e10;\n  height: auto;\n}\n.comments-container .comments {\n  background-color: #17171a;\n  width: 1300px;\n  height: 1080px;\n}\n.comments-container .comments .hat {\n  height: 95px;\n}\n.comments-container .comments .hat .label-block {\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  height: 100%;\n  width: 19%;\n  vertical-align: top;\n}\n.comments-container .comments .hat .label-block .label-text {\n  color: #c9c9cb;\n  display: block;\n  font-family: \"Roboto\", sans-serif;\n  font-size: 200%;\n  font-weight: 500;\n  letter-spacing: 1px;\n}\n.comments-container .comments .hat .label-block .label-text:-webkit-any-link {\n  text-decoration: none;\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .label-block .label-text:-moz-any-link {\n  text-decoration: none;\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .label-block .label-text:any-link {\n  text-decoration: none;\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .label-block .label-text:hover {\n  text-decoration: none;\n}\n.comments-container .comments .hat .sort-block {\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  height: 100%;\n  margin-left: 25px;\n  letter-spacing: 0.4px;\n}\n.comments-container .comments .hat .sort-block .sort_btn {\n  vertical-align: bottom;\n  display: inline-block;\n  margin-right: 17px;\n}\n.comments-container .comments .hat .sort-block .sort_btn input[type=radio] {\n  display: none;\n}\n.comments-container .comments .hat .sort-block .sort_btn label {\n  display: inline-block;\n  cursor: pointer;\n  padding: 4px 13px;\n  line-height: 34px;\n  border-radius: 6px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  margin: 0 0;\n  color: #797983;\n  font-size: 135%;\n  font-family: \"Roboto\", sans-serif;\n}\n.comments-container .comments .hat .sort-block .sort_btn input[type=radio]:checked + label {\n  background: #1f1f23;\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .sort-block .sort_btn label:hover {\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .rules-block {\n  float: right;\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  height: 100%;\n  width: 13.7%;\n}\n.comments-container .comments .hat .rules-block .rules-label {\n  font-size: 135%;\n  letter-spacing: 0.6px;\n  color: #797983;\n}\n.comments-container .comments .hat .rules-block .rules-label:-webkit-any-link {\n  text-decoration: none;\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .rules-block .rules-label:-moz-any-link {\n  text-decoration: none;\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .rules-block .rules-label:any-link {\n  text-decoration: none;\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .rules-block .rules-label:hover {\n  text-decoration: none;\n}\n.comments-container .comments .hat .rules-block .rules-label::before {\n  content: \"\";\n  display: inline-block;\n  vertical-align: middle;\n  background-image: url(\"/css/icons/info-black-18dp.svg\");\n  background-size: 20px 20px;\n  height: 20px;\n  width: 20px;\n  margin: 0 5px 4px 7px;\n}", ""]);
 
 // exports
 
@@ -38194,7 +38313,58 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "comments-container" }, [
       _c("div", { staticClass: "comments" }, [
-        _c("div", { staticClass: "hat" }),
+        _c("div", { staticClass: "hat" }, [
+          _c("div", { staticClass: "label-block" }, [
+            _c("a", { staticClass: "label-text" }, [_vm._v("Комментарии")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "sort-block" }, [
+            _c("div", { staticClass: "sort_btn" }, [
+              _c("input", {
+                attrs: {
+                  id: "sort_btn1",
+                  type: "radio",
+                  name: "radio",
+                  value: "1"
+                }
+              }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "sort_btn1" } }, [
+                _vm._v("Популярные")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "sort_btn" }, [
+              _c("input", {
+                attrs: {
+                  id: "sort_btn2",
+                  type: "radio",
+                  name: "radio",
+                  value: "2"
+                }
+              }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "sort_btn2" } }, [_vm._v("Новые")])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "sort_btn" }, [
+              _c("input", {
+                attrs: {
+                  id: "sort_btn3",
+                  type: "radio",
+                  name: "radio",
+                  value: "3"
+                }
+              }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "sort_btn3" } }, [_vm._v("Старые")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "rules-block" }, [
+            _c("a", { staticClass: "rules-label" }, [_vm._v("Правила")])
+          ])
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "body" })
       ])
