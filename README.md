@@ -14,4 +14,33 @@
 
 <p align="center"><img src="https://dota2.ru/img/replies.png" width="400"></p>
 
-БД: https://dbdiagram.io/d/5fad5aef3a78976d7b7ba7ef
+(Структура базы данных)[https://dbdiagram.io/d/5fad5aef3a78976d7b7ba7ef]
+
+## Запуск проекта
+
+#### База данных
+ 1. Выполнить следующух команду в SQL:
+ >`CREATE DATABASE testtask CHARSET=utf8 COLLATE=utf8_unicode_ci`
+
+##### Back-end:
+ 1. В консоли выполнить команду:
+ >`composer install`
+ 
+ 2. Скопировать файл .env.example и переименовать его в .env
+ 
+ 3. В консоли выполнить следующую команду(Генерация ключа для env):
+ > `php artisan key:generate`
+ 
+ 4. Для создания структуры БД c сидами (наполнение) выполнить в консоли:
+ > `php artisan migrate:refresh --seed`
+
+
+
+
+##### Front-end:
+
+ 1. В консоли выполнить команду:
+ >`npm install`
+ 
+ 2. Сборка проекта в watch режиме:
+ >`npm run watch` 
