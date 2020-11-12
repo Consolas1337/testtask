@@ -14,3 +14,4 @@
 
 <p align="center"><img src="https://dota2.ru/img/replies.png" width="400"></p>
 
+БД: https://dbdiagram.io/d/5fad5aef3a78976d7b7ba7ef
