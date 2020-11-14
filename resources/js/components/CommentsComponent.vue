@@ -10,6 +10,10 @@ $projectBackground: #17171a;
 $green: #37ad6d;
 $red: #d42c2c;
 
+body {
+  background-color: $pageBackground;
+}
+
 .red {
   transition: 0.33s ease-in;
   color: $red;
@@ -177,7 +181,6 @@ import CommentComponent from "./CommentComponent.vue"
           .get("api/comments/get-all")
           .then(
             r => {
-              console.log(r.data);
               this.comments = r.data.data;
             },
             e => {
@@ -187,8 +190,6 @@ import CommentComponent from "./CommentComponent.vue"
       },
       onClickReplyButton() {},
       sendComment() {},
-      like() {},
-      dislike() {},
     },
     mounted() {
       this.getComments();

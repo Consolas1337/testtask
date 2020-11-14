@@ -2083,8 +2083,66 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "CommentsComponent",
+  name: "CommentComponent",
+  methods: {
+    like: function like(comm_obj) {
+      if (comm_obj.action === 1) {
+        return;
+      }
+
+      axios.post("api/comments/like", {
+        "id": comm_obj.id
+      }).then(function (r) {
+        if (comm_obj.action === -1) {
+          comm_obj.action = 0;
+        } else {
+          comm_obj.action = 1;
+        }
+
+        comm_obj.likes += 1;
+      }, function (e) {
+        console.log(e.data.message);
+      });
+    },
+    dislike: function dislike(comm_obj) {
+      if (comm_obj.action === -1) {
+        return;
+      }
+
+      axios.post("api/comments/dislike", {
+        "id": comm_obj.id
+      }).then(function (r) {
+        if (comm_obj.action === 1) {
+          comm_obj.action = 0;
+        } else {
+          comm_obj.action = -1;
+        }
+
+        comm_obj.likes -= 1;
+      }, function (e) {
+        console.log(e.data.message);
+      });
+    }
+  },
   props: {
     comment: Object
   }
@@ -2268,6 +2326,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2281,16 +2343,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get("api/comments/get-all").then(function (r) {
-        console.log(r.data);
         _this.comments = r.data.data;
       }, function (e) {
         console.log(e.data);
       });
     },
     onClickReplyButton: function onClickReplyButton() {},
-    sendComment: function sendComment() {},
-    like: function like() {},
-    dislike: function dislike() {}
+    sendComment: function sendComment() {}
   },
   mounted: function mounted() {
     this.getComments();
@@ -6739,10 +6798,10 @@ __webpack_require__.r(__webpack_exports__);
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
-exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap);", ""]);
+
 
 // module
-exports.push([module.i, ".comment {\n  padding: 30px 0px 0px 45px;\n}\n.comment .comment-body {\n  display: flex;\n}\n.comment .comment-body .avatar {\n  float: left;\n  flex-grow: 0;\n  vertical-align: top;\n}\n.comment .comment-body .avatar img {\n  border-radius: 50%;\n}\n.comment .comment-body .avatar-comment-wrapper {\n  width: 20px;\n  flex-grow: 0;\n  flex-shrink: 0;\n}\n.comment .comment-body .main {\n  flex-grow: 1;\n  float: right;\n}\n.comment .comment-body .main .top-info {\n  display: inline-block;\n  width: 100%;\n  font-size: 130%;\n  color: #797983;\n}\n.comment .comment-body .main .top-info .username {\n  display: inline-block;\n  font-weight: 800;\n  letter-spacing: 0.7px;\n}\n.comment .comment-body .main .top-info .time-ago {\n  display: inline-block;\n  letter-spacing: 0.75px;\n}\n.comment .comment-body .main .top-info .time-ago::before {\n  content: \"\";\n  display: inline-block;\n  vertical-align: middle;\n  background-image: url(\"/css/icons/access_time-24px.svg\");\n  background-size: 22px 22px;\n  height: 22px;\n  width: 22px;\n  margin: 0 7px 0 3px;\n}\n.comment .comment-body .main .top-info .reply-btn {\n  display: inline-block;\n  cursor: pointer;\n  margin-left: 16px;\n}\n.comment .comment-body .main .top-info .reply-btn::before {\n  content: \"\";\n  display: inline-block;\n  vertical-align: middle;\n  background-image: url(\"/css/icons/reply-24px.svg\");\n  background-size: 22px 22px;\n  height: 22px;\n  width: 22px;\n  margin: 0px 5px;\n}\n.comment .comment-body .main .top-info .share-btn {\n  display: inline-block;\n  cursor: pointer;\n  vertical-align: text-top;\n  margin: 0 5px 0 23px;\n}\n.comment .comment-body .main .top-info .share-btn .share-icon {\n  pointer-events: none;\n}\n.comment .comment-body .main .top-info .block-btn {\n  display: inline-block;\n  cursor: pointer;\n  vertical-align: text-top;\n}\n.comment .comment-body .main .top-info .block-btn .block-icon {\n  pointer-events: none;\n}\n.comment .comment-body .main .top-info .likes-container {\n  float: right;\n}\n.comment .comment-body .main .top-info .likes-container .like-btn {\n  display: inline-block;\n  cursor: pointer;\n  margin: 0 5px;\n}\n.comment .comment-body .main .top-info .likes-container .like-btn .like-icon {\n  vertical-align: text-top;\n  transform: rotate(180deg);\n  pointer-events: none;\n}\n.comment .comment-body .main .top-info .likes-container .dislike-btn {\n  display: inline-block;\n  cursor: pointer;\n  margin: 0 5px;\n}\n.comment .comment-body .main .top-info .likes-container .dislike-btn .dislike-icon {\n  pointer-events: none;\n  vertical-align: text-top;\n}\n.comment .comment-body .main .top-info .likes-container .likes-label {\n  display: inline-block;\n}\n.comment .comment-body .main .comm-text {\n  display: inline-block;\n  margin-top: 2px;\n  color: #c9c9cb;\n  font-size: 150%;\n  letter-spacing: 1.22px;\n}\n.nested {\n  border-left: 3px solid #39393e;\n  margin: 12px 0 0 30px;\n}\n.first {\n  padding: 30px 40px 30px 40px;\n}", ""]);
+exports.push([module.i, ".comment {\n  padding: 30px 0px 0px 45px;\n}\n.comment .comment-body {\n  display: flex;\n}\n.comment .comment-body .avatar {\n  float: left;\n  flex-grow: 0;\n  vertical-align: top;\n}\n.comment .comment-body .avatar img {\n  border-radius: 50%;\n}\n.comment .comment-body .avatar-comment-wrapper {\n  width: 20px;\n  flex-grow: 0;\n  flex-shrink: 0;\n}\n.comment .comment-body .main {\n  flex-grow: 1;\n  float: right;\n}\n.comment .comment-body .main .top-info {\n  display: inline-block;\n  width: 100%;\n  font-size: 130%;\n  color: #797983;\n}\n.comment .comment-body .main .top-info .username {\n  display: inline-block;\n  font-weight: 800;\n  letter-spacing: 0.7px;\n}\n.comment .comment-body .main .top-info .time-ago {\n  display: inline-block;\n  letter-spacing: 0.75px;\n}\n.comment .comment-body .main .top-info .time-ago::before {\n  content: \"\";\n  display: inline-block;\n  vertical-align: middle;\n  background-image: url(\"/css/icons/access_time-24px.svg\");\n  background-size: 22px 22px;\n  height: 22px;\n  width: 22px;\n  margin: 0 7px 0 3px;\n}\n.comment .comment-body .main .top-info .reply-btn {\n  display: inline-block;\n  cursor: pointer;\n  margin-left: 16px;\n}\n.comment .comment-body .main .top-info .reply-btn::before {\n  content: \"\";\n  display: inline-block;\n  vertical-align: middle;\n  background-image: url(\"/css/icons/reply-24px.svg\");\n  background-size: 22px 22px;\n  height: 22px;\n  width: 22px;\n  margin: 0px 5px;\n}\n.comment .comment-body .main .top-info .share-btn {\n  display: inline-block;\n  cursor: pointer;\n  vertical-align: text-top;\n  margin: 0 5px 0 23px;\n}\n.comment .comment-body .main .top-info .share-btn .share-icon {\n  pointer-events: none;\n}\n.comment .comment-body .main .top-info .block-btn {\n  display: inline-block;\n  cursor: pointer;\n  vertical-align: text-top;\n}\n.comment .comment-body .main .top-info .block-btn .block-icon {\n  pointer-events: none;\n}\n.comment .comment-body .main .top-info .likes-container {\n  float: right;\n}\n.comment .comment-body .main .top-info .likes-container .like-btn {\n  display: inline-block;\n  cursor: pointer;\n  margin: 0 5px;\n}\n.comment .comment-body .main .top-info .likes-container .like-btn .like-icon {\n  vertical-align: text-top;\n  transform: rotate(180deg);\n  pointer-events: none;\n}\n.comment .comment-body .main .top-info .likes-container .liked .like-icon #like {\n  fill: #37ad6d;\n}\n.comment .comment-body .main .top-info .likes-container .dislike-btn {\n  display: inline-block;\n  cursor: pointer;\n  margin: 0 5px;\n}\n.comment .comment-body .main .top-info .likes-container .dislike-btn .dislike-icon {\n  pointer-events: none;\n  vertical-align: text-top;\n}\n.comment .comment-body .main .top-info .likes-container .disliked .dislike-icon #dislike {\n  fill: #d42c2c;\n}\n.comment .comment-body .main .top-info .likes-container .likes-label {\n  display: inline-block;\n}\n.comment .comment-body .main .comm-text {\n  display: inline-block;\n  margin-top: 2px;\n  color: #c9c9cb;\n  font-size: 150%;\n  letter-spacing: 1.22px;\n}\n.nested {\n  border-left: 3px solid #39393e;\n  margin-left: 30px;\n  padding-top: 45px;\n}\n.first {\n  padding: 30px 40px 30px 40px;\n}", ""]);
 
 // exports
 
@@ -6761,7 +6820,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap);", ""]);
 
 // module
-exports.push([module.i, ".red {\n  transition: 0.33s ease-in;\n  color: #d42c2c;\n}\n.green {\n  transition: 0.33s ease-in;\n  color: #37ad6d;\n}\n.comments-container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0e0e10;\n  height: auto;\n  font-family: \"Roboto\", sans-serif;\n}\n.comments-container .comments {\n  background-color: #17171a;\n  width: 1300px;\n}\n.comments-container .comments .hat {\n  height: 95px;\n}\n.comments-container .comments .hat .label-block {\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  height: 100%;\n  width: 19%;\n  vertical-align: top;\n}\n.comments-container .comments .hat .label-block .label-text {\n  color: #c9c9cb;\n  display: block;\n  font-size: 200%;\n  font-weight: 500;\n  letter-spacing: 1px;\n}\n.comments-container .comments .hat .label-block .label-text:-webkit-any-link {\n  text-decoration: none;\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .label-block .label-text:-moz-any-link {\n  text-decoration: none;\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .label-block .label-text:any-link {\n  text-decoration: none;\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .label-block .label-text:hover {\n  text-decoration: none;\n}\n.comments-container .comments .hat .sort-block {\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  height: 100%;\n  margin-left: 25px;\n  letter-spacing: 0.4px;\n}\n.comments-container .comments .hat .sort-block .sort_btn {\n  vertical-align: bottom;\n  display: inline-block;\n  margin-right: 17px;\n}\n.comments-container .comments .hat .sort-block .sort_btn input[type=radio] {\n  display: none;\n}\n.comments-container .comments .hat .sort-block .sort_btn label {\n  display: inline-block;\n  cursor: pointer;\n  padding: 4px 13px;\n  line-height: 34px;\n  border-radius: 6px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  margin: 0 0;\n  color: #797983;\n  font-size: 135%;\n}\n.comments-container .comments .hat .sort-block .sort_btn input[type=radio]:checked + label {\n  background: #1f1f23;\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .sort-block .sort_btn label:hover {\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .rules-block {\n  float: right;\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  height: 100%;\n  width: 13.7%;\n}\n.comments-container .comments .hat .rules-block .rules-label {\n  font-size: 135%;\n  letter-spacing: 0.6px;\n  color: #797983;\n}\n.comments-container .comments .hat .rules-block .rules-label:-webkit-any-link {\n  text-decoration: none;\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .rules-block .rules-label:-moz-any-link {\n  text-decoration: none;\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .rules-block .rules-label:any-link {\n  text-decoration: none;\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .rules-block .rules-label:hover {\n  text-decoration: none;\n}\n.comments-container .comments .hat .rules-block .rules-label::before {\n  content: \"\";\n  display: inline-block;\n  vertical-align: middle;\n  background-image: url(\"/css/icons/info-black-18dp.svg\");\n  background-size: 20px 20px;\n  height: 20px;\n  width: 20px;\n  margin: 0 5px 4px 7px;\n}", ""]);
+exports.push([module.i, "body {\n  background-color: #0e0e10;\n}\n.red {\n  transition: 0.33s ease-in;\n  color: #d42c2c;\n}\n.green {\n  transition: 0.33s ease-in;\n  color: #37ad6d;\n}\n.comments-container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0e0e10;\n  height: auto;\n  font-family: \"Roboto\", sans-serif;\n}\n.comments-container .comments {\n  background-color: #17171a;\n  width: 1300px;\n}\n.comments-container .comments .hat {\n  height: 95px;\n}\n.comments-container .comments .hat .label-block {\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  height: 100%;\n  width: 19%;\n  vertical-align: top;\n}\n.comments-container .comments .hat .label-block .label-text {\n  color: #c9c9cb;\n  display: block;\n  font-size: 200%;\n  font-weight: 500;\n  letter-spacing: 1px;\n}\n.comments-container .comments .hat .label-block .label-text:-webkit-any-link {\n  text-decoration: none;\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .label-block .label-text:-moz-any-link {\n  text-decoration: none;\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .label-block .label-text:any-link {\n  text-decoration: none;\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .label-block .label-text:hover {\n  text-decoration: none;\n}\n.comments-container .comments .hat .sort-block {\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  height: 100%;\n  margin-left: 25px;\n  letter-spacing: 0.4px;\n}\n.comments-container .comments .hat .sort-block .sort_btn {\n  vertical-align: bottom;\n  display: inline-block;\n  margin-right: 17px;\n}\n.comments-container .comments .hat .sort-block .sort_btn input[type=radio] {\n  display: none;\n}\n.comments-container .comments .hat .sort-block .sort_btn label {\n  display: inline-block;\n  cursor: pointer;\n  padding: 4px 13px;\n  line-height: 34px;\n  border-radius: 6px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  margin: 0 0;\n  color: #797983;\n  font-size: 135%;\n}\n.comments-container .comments .hat .sort-block .sort_btn input[type=radio]:checked + label {\n  background: #1f1f23;\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .sort-block .sort_btn label:hover {\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .rules-block {\n  float: right;\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  height: 100%;\n  width: 13.7%;\n}\n.comments-container .comments .hat .rules-block .rules-label {\n  font-size: 135%;\n  letter-spacing: 0.6px;\n  color: #797983;\n}\n.comments-container .comments .hat .rules-block .rules-label:-webkit-any-link {\n  text-decoration: none;\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .rules-block .rules-label:-moz-any-link {\n  text-decoration: none;\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .rules-block .rules-label:any-link {\n  text-decoration: none;\n  color: #c9c9cb;\n}\n.comments-container .comments .hat .rules-block .rules-label:hover {\n  text-decoration: none;\n}\n.comments-container .comments .hat .rules-block .rules-label::before {\n  content: \"\";\n  display: inline-block;\n  vertical-align: middle;\n  background-image: url(\"/css/icons/info-black-18dp.svg\");\n  background-size: 20px 20px;\n  height: 20px;\n  width: 20px;\n  margin: 0 5px 4px 7px;\n}", ""]);
 
 // exports
 
@@ -38613,9 +38672,93 @@ var render = function() {
             _vm._m(2),
             _vm._v(" "),
             _c("div", { staticClass: "likes-container" }, [
-              _vm._m(3),
+              _c(
+                "div",
+                {
+                  staticClass: "like-btn",
+                  class: { liked: _vm.comment.action === 1 },
+                  on: {
+                    click: function($event) {
+                      return _vm.like(_vm.comment)
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "like-icon",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        height: "24",
+                        viewBox: "0 0 24 24",
+                        width: "24"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M0 0h24v24H0V0zm0 0h24v24H0V0z",
+                          fill: "none"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("path", {
+                        attrs: {
+                          id: "like",
+                          d:
+                            "M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm0 12l-4.34 4.34L12 14H3v-2l3-7h9v10zm4-12h4v12h-4z",
+                          fill: "#797983"
+                        }
+                      })
+                    ]
+                  )
+                ]
+              ),
               _vm._v(" "),
-              _vm._m(4),
+              _c(
+                "div",
+                {
+                  staticClass: "dislike-btn",
+                  class: { disliked: _vm.comment.action === -1 },
+                  on: {
+                    click: function($event) {
+                      return _vm.dislike(_vm.comment)
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "dislike-icon",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        height: "24",
+                        viewBox: "0 0 24 24",
+                        width: "24"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d: "M0 0h24v24H0V0zm0 0h24v24H0V0z",
+                          fill: "none"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("path", {
+                        attrs: {
+                          id: "dislike",
+                          d:
+                            "M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm0 12l-4.34 4.34L12 14H3v-2l3-7h9v10zm4-12h4v12h-4z",
+                          fill: "#797983"
+                        }
+                      })
+                    ]
+                  )
+                ]
+              ),
               _vm._v(" "),
               _c(
                 "div",
@@ -38632,7 +38775,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "comm-text" }, [
-            _vm._v("\n        " + _vm._s(_vm.comment.text) + "\n        ")
+            _vm._v("\n      " + _vm._s(_vm.comment.text) + "\n    ")
           ])
         ])
       ]),
@@ -38641,7 +38784,7 @@ var render = function() {
         ? _c(
             "div",
             _vm._l(_vm.comment.childs, function(comment) {
-              return _c("CommentsComponent", {
+              return _c("CommentComponent", {
                 key: comment.id,
                 attrs: { comment: comment }
               })
@@ -38689,38 +38832,6 @@ var staticRenderFns = [
           data: "/css/icons/block-24px.svg",
           width: "18",
           height: "18"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "like-btn" }, [
-      _c("object", {
-        staticClass: "like-icon",
-        attrs: {
-          type: "image/svg+xml",
-          data: "/css/icons/thumb-24px.svg",
-          width: "24",
-          height: "24"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "dislike-btn" }, [
-      _c("object", {
-        staticClass: "dislike-icon",
-        attrs: {
-          type: "image/svg+xml",
-          data: "/css/icons/thumb-24px.svg",
-          width: "24",
-          height: "24"
         }
       })
     ])
