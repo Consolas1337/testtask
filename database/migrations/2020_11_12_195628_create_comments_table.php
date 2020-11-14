@@ -23,9 +23,9 @@ class CreateCommentsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('comments', function ($table) {
-            $table->foreign('parent_id')->references('id')->on('comments')->onDelete('cascade');
-        });
+        // Schema::table('comments', function ($table) {
+        //     $table->foreign('parent_id')->references('id')->on('comments')->onDelete('cascade');
+        // });
     }
 
     /**

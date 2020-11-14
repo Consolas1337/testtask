@@ -5,18 +5,22 @@
 $mainLight: #c9c9cb;
 $nonHoveredGray: #797983;
 $hoverButtonBackground: #000000;
+$pageBackground: #0e0e10;
+$projectBackground: #17171a;
 
 
 .comments-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #0e0e10;
+  background-color: $pageBackground;
   height: auto;
+  font-family: 'Roboto', sans-serif;
   .comments {
-    background-color: #17171a;
+    background-color: $projectBackground;
     width: 1300px;
     height: 1080px;
+    
     .hat {
       height: 95px;
       .label-block {
@@ -29,7 +33,6 @@ $hoverButtonBackground: #000000;
         .label-text {
           color: $mainLight;
           display: block;
-          font-family: 'Roboto', sans-serif;
           font-size: 200%;
           font-weight: 500;
           letter-spacing: 1px;
@@ -68,7 +71,6 @@ $hoverButtonBackground: #000000;
           margin: 0 0;
           color: #797983;
           font-size: 135%;
-          font-family: 'Roboto', sans-serif;
         }
         
         .sort_btn input[type=radio]:checked + label {
@@ -113,7 +115,107 @@ $hoverButtonBackground: #000000;
       }
     }
     .body {
-
+      .comment {
+        padding: 30px 0px 30px 40px;
+        float: right;
+        width: fit-content;
+        .avatar {
+          float: left;
+          vertical-align: top;
+          img {
+            border-radius: 50%;
+          }
+        }
+        .main {
+          max-width: 93.5%;
+          float: right;
+          .top-info {
+            display: inline-block;
+            width: 100%;
+            font-size: 130%;
+            color: $nonHoveredGray;
+            .username {
+              display: inline-block;
+              font-weight: 800;
+              letter-spacing: 0.7px;
+            }
+            .time-ago {
+              display: inline-block;
+              letter-spacing: 0.75px;
+            }
+            .time-ago::before {
+              $icon-size: 22px;
+              content: '';
+              display: inline-block;
+              vertical-align: middle;
+              background-image: url('/css/icons/access_time-24px.svg');
+              background-size: $icon-size $icon-size;
+              height: $icon-size;
+              width: $icon-size;
+              margin: 0 7px 0 3px;
+            }
+            .reply-btn {
+              display: inline-block;
+              margin-left: 16px;
+            }
+            .reply-btn::before {
+              $icon-size: 22px;
+              content: '';
+              display: inline-block;
+              vertical-align: middle;
+              background-image: url('/css/icons/reply-24px.svg');
+              background-size: $icon-size $icon-size;
+              height: $icon-size;
+              width: $icon-size;
+              margin: 0px 5px;
+            }
+            .share-btn {
+              display: inline-block;
+              vertical-align: text-top;
+              margin: 0 5px 0 23px;
+            }
+            .block-btn {
+              display: inline-block;
+              vertical-align: text-top;
+            }
+            .likes-container {
+              float: right;
+              .like-btn {
+                display: inline-block;
+                margin: 0 5px;
+                .like {
+                  vertical-align: text-top;
+                  transform: rotate(180deg);
+                }
+              }
+              .dislike-btn {
+                display: inline-block;
+                margin: 0 5px;
+                .dislike {
+                  vertical-align: text-top;
+                }
+              }
+              .likes-label {
+                display: inline-block;
+              }
+            }
+          }
+          .comm-text {
+            display: inline-block;            
+            margin-top: 2px;
+            color: $mainLight;
+            font-size: 150%;
+            letter-spacing: 1.22px;
+          }
+        }
+      }
+      .nested {
+        border-left: 4px solid black;
+        margin: 12px 0 0 50px;
+      }
+      .first {
+        padding: 30px 40px 30px 40px;
+      }
     }
   }
 }
@@ -145,7 +247,102 @@ $hoverButtonBackground: #000000;
         </div>
       </div>
       <div class="body">
+        <div class="comment first">
+          <div class="avatar">
+            <img src="https://via.placeholder.com/60">
+          </div>
+          <div class="main">
+            <div class="top-info">
+              <div class="username">{{ comments[0].user }}</div>
+              <div class="time-ago">2 час. назад</div>
+              <div class="reply-btn">ответить</div>
+              <div class="share-btn">
+                <object type="image/svg+xml" data="/css/icons/share-24px.svg" width="18" height="18"></object>
+              </div>
+              <div class="block-btn">
+                <object type="image/svg+xml" data="/css/icons/block-24px.svg" width="18" height="18"></object>
+              </div>
+              <div class="likes-container">
+                <div class="like-btn">
+                  <object type="image/svg+xml" data="/css/icons/thumb-24px.svg" width="24" height="24" class="like"></object>
+                </div>
+                <div class="dislike-btn">
+                  <object type="image/svg+xml" data="/css/icons/thumb-24px.svg" width="24" height="24" class="dislike"></object>
+                </div>
+                <div class="likes-label">{{ comments[0].likes }}</div>
+              </div>
+            </div>
+            <div class="comm-text">
+              {{ comments[0].text }}
+            </div>
+          </div>
+          
+          <div class="comment nested">
+            <div class="avatar">
+              <img src="https://via.placeholder.com/60">
+            </div>
+            <div class="main">
+              <div class="top-info">
+                <div class="username">{{ comments[0].childs[0].user }}</div>
+                <div class="time-ago">2 час. назад</div>
+                <div class="reply-btn">ответить</div>
+                <div class="share-btn">
+                  <object type="image/svg+xml" data="/css/icons/share-24px.svg" width="18" height="18"></object>
+                </div>
+                <div class="block-btn">
+                  <object type="image/svg+xml" data="/css/icons/block-24px.svg" width="18" height="18"></object>
+                </div>
+                <div class="likes-container">
+                  <div class="like-btn">
+                    <object type="image/svg+xml" data="/css/icons/thumb-24px.svg" width="24" height="24" class="like"></object>
+                  </div>
+                  <div class="dislike-btn">
+                    <object type="image/svg+xml" data="/css/icons/thumb-24px.svg" width="24" height="24" class="dislike"></object>
+                  </div>
+                  <div class="likes-label">{{ comments[0].childs[0].likes }}</div>
+                </div>
+              </div>
+              <div class="comm-text">
+                {{ comments[0].childs[0].text }}
+              </div>
+            </div>
+            
+            <div class="comment nested">
+            <div class="avatar">
+              <img src="https://via.placeholder.com/60">
+            </div>
+            <div class="main">
+              <div class="top-info">
+                <div class="username">{{ comments[0].childs[0].childs[0].user }}</div>
+                <div class="time-ago">2 час. назад</div>
+                <div class="reply-btn">ответить</div>
+                <div class="share-btn">
+                  <object type="image/svg+xml" data="/css/icons/share-24px.svg" width="18" height="18"></object>
+                </div>
+                <div class="block-btn">
+                  <object type="image/svg+xml" data="/css/icons/block-24px.svg" width="18" height="18"></object>
+                </div>
+                <div class="likes-container">
+                  <div class="like-btn">
+                    <object type="image/svg+xml" data="/css/icons/thumb-24px.svg" width="24" height="24" class="like"></object>
+                  </div>
+                  <div class="dislike-btn">
+                    <object type="image/svg+xml" data="/css/icons/thumb-24px.svg" width="24" height="24" class="dislike"></object>
+                  </div>
+                  <div class="likes-label">{{ comments[0].childs[0].childs[0].likes }}</div>
+                </div>
+              </div>
+              <div class="comm-text">
+                {{ comments[0].childs[0].childs[0].text }}
+              </div>
+            </div>
 
+        
+          </div>
+        
+          </div>
+        
+        </div>
       </div>
     </div>
   </div>
@@ -153,8 +350,26 @@ $hoverButtonBackground: #000000;
 
 <script>
   export default {
+    data:() => ({
+      comments: [],
+    }),
+    methods: {
+      getComments() {
+        axios
+          .get("api/comments/get-all")
+          .then(
+            r => {
+              console.log(r.data);
+              this.comments = r.data.data;
+            },
+            e => {
+              console.log(e.data);
+            }
+          );
+      }
+    },
     mounted() {
-      console.log('Component mounted.')
+      this.getComments();
     }
   }
 </script>

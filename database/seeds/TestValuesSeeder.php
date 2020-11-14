@@ -12,44 +12,24 @@ class TestValuesSeeder extends Seeder
    */
   public function run()
   {
-    DB::table('comments')->insert([
-      'likes' => '4',
-      'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
-      'user' => 'Consolas',
+    $comment = DB::table('comments')->insertGetId([
+      'likes' => '11',
+      'text' => 'подумал, что наконец обратили внимание на баг с невозможностью применения песчаного ландшафта',
+      'user' => 'Jenny Wilson',
     ]);
 
     $comment1 = DB::table('comments')->insertGetId([
-      'likes' => '2',
-      'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
-      'user' => 'Валерий Альбертович',
+      'parent_id' => $comment,
+      'likes' => '-1',
+      'text' => 'Когда сажаешь дома на рассаду, никогда не "чикаешь" макушку, но они такими лианами не вырастают никогда, просто аккуратные кустики. Все-таки этот наверное не просто перец, а с чем-то скрещен.',
+      'user' => 'Brooklyn Simmons',
     ]);
 
     $comment2 = DB::table('comments')->insertGetId([
-      'likes' => '-5',
-      'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
-      'user' => 'Максим Сандаков',
-    ]);
-
-    $comment3 = DB::table('comments')->insertGetId([
-      'parent_id' => $comment2,
+      'parent_id' => $comment1,
       'likes' => '0',
-      'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
-      'user' => 'Akldkajs Dasdsioda',
+      'text' => 'Если воду настаивать в банке с мелко порубленной кожурой банана, и этим поливать, то вообще кучеряво будет.',
+      'user' => 'Robert Fox',
     ]);
-
-    $comment4 = DB::table('comments')->insertGetId([
-      'parent_id' => $comment3,
-      'likes' => '27',
-      'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
-      'user' => 'Palksjd Pasdjlk',
-    ]);
-
-    $comment5 = DB::table('comments')->insertGetId([
-      'parent_id' => $comment2,
-      'likes' => '-45',
-      'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
-      'user' => 'Aqweklasd Максим',
-    ]);
-
   }
 }

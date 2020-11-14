@@ -9,7 +9,7 @@ class Comments extends Model
 {
     use SoftDeletes;
     
-    protected $table = 'product_order';
+    protected $table = 'comments';
 
     protected $fillable = [
         'parent_id',
@@ -24,8 +24,13 @@ class Comments extends Model
     ];
 
 
+    public function parent()
+    {
+        return $this->belongsTo(self::class, 'parent_id');
+    }
+
     public function childs()
     {
-        return $this->hasMany(Comments::class, 'parent_id', 'id');
+        return $this->hasMany(self::class, 'parent_id');
     }
 }
