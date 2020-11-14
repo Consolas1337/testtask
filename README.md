@@ -29,12 +29,12 @@
  2. Скопировать файл .env.example и переименовать его в .env
 
  3. Редактируем файл .env, настраиваем подключение к бд, используя свои параметры:
- >DB_CONNECTION=mysql
- >DB_HOST=127.0.0.1
- >DB_PORT=3306
- >DB_DATABASE=testtask
- >DB_USERNAME=root
- >DB_PASSWORD=root
+ >`DB_CONNECTION=mysql`
+ >`DB_HOST=127.0.0.1`
+ >`DB_PORT=3306`
+ >`DB_DATABASE=testtask`
+ >`DB_USERNAME=root`
+ >`DB_PASSWORD=root`
  
  4. В консоли выполнить следующую команду(Генерация ключа для env):
  > `php artisan key:generate`
