@@ -8,7 +8,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-import commentsComponent from './components/CommentsComponent.vue';
+import Main from './components/Main.vue';
 
 /**
  * The following block of code may be used to automatically register your
@@ -32,6 +32,6 @@ import commentsComponent from './components/CommentsComponent.vue';
 
 const app = new Vue({
     el: '#app',
-    template: '<commentsComponent/>',
-    components: { commentsComponent },
+    template: '<Main/>',
+    components: { Main },
 });

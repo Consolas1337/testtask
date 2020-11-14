@@ -12,6 +12,7 @@ $red: #d42c2c;
 
 body {
   background-color: $pageBackground;
+  scroll-behavior: smooth;
 }
 
 .red {
@@ -129,8 +130,7 @@ body {
       }
     }
     .body {
-
-
+      border-bottom: 1px solid #39393e;
     }
   }
 }
@@ -162,18 +162,32 @@ body {
         </div>
       </div>
       <div class="body">
-        <CommentComponent v-for="comment in comments" :comment="comment" :key="comment.id"></CommentComponent>
+        <CommentComponent 
+          v-for="comment in comments" 
+          :comment="comment"
+          :key="comment.id" 
+          @reply="replyComment"
+          @pushParent='replyComment'
+        ></CommentComponent>
       </div>
+      <SendFormComponent 
+        @updateComments="getComments"
+        :parent_comment="parent_comment"
+      ></SendFormComponent>
     </div>
   </div>
 </template>
 
 <script>
 import CommentComponent from "./CommentComponent.vue"
+import SendFormComponent from "./SendFormComponent.vue"
+
   export default {
     data:() => ({
       comments: [],
+      comment: [],
       formData: [],
+      parent_comment: {},
     }),
     methods: {
       getComments() {
@@ -188,14 +202,22 @@ import CommentComponent from "./CommentComponent.vue"
             }
           );
       },
-      onClickReplyButton() {},
-      sendComment() {},
+      onClickReplyButton() {
+
+      },
+      replyComment(data) {
+
+        this.parent_comment = data;
+      },
+
     },
     mounted() {
       this.getComments();
     },
   components: {
     CommentComponent,
+    SendFormComponent,
   },
+
   }
 </script>

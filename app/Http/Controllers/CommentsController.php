@@ -15,7 +15,7 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        $comments = Comments::where("parent_id", null)->with("childs.childs.childs.childs")->get(); // FIXME
+        $comments = Comments::where("parent_id", null)->with("childs.childs.childs.childs.childs")->get(); // FIXME
         return response()->json(['data' => $comments], 200);
     }
 
@@ -48,10 +48,16 @@ class CommentsController extends Controller
         $text = $request->input("text");
         $parent = $request->input("parent_id");
 
+        $parent = Comments::find($parent);
+
+        if (!isset($parent)) {
+            $parent = null;
+        }
+
         Comments::create([
-            'name' => $name,
+            'user' => $name,
             'text' => $text,
-            'parent_id' => $parent || null,
+            'parent_id' => $parent["id"],
         ]);
 
         return response()->json(['message' => "Комментарий успешно создан!"], 200);

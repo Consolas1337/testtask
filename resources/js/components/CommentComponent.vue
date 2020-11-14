@@ -151,42 +151,42 @@ $red: #d42c2c;
 <template>
   <div class="comment" v-bind:class="{ 'first': !comment.parent_id, 'nested': comment.parent_id, }">
     <div class="comment-body">
-    <div class="avatar">
-      <img src="https://via.placeholder.com/60">
-    </div>
-    <div class="avatar-comment-wrapper"></div>
-    <div class="main">
-      <div class="top-info">
-      <div class="username">{{ comment.user }}</div>
-      <div class="time-ago">2 час. назад</div>
-      <div class="reply-btn">ответить</div>
-      <div class="share-btn">
-        <object type="image/svg+xml" data="/css/icons/share-24px.svg" width="18" height="18" class="share-icon"></object>
+      <div class="avatar">
+        <img src="https://via.placeholder.com/60">
       </div>
-      <div class="block-btn">
-        <object type="image/svg+xml" data="/css/icons/block-24px.svg" width="18" height="18" class="block-icon"></object>
-      </div>
-      <div class="likes-container">
-        <div class="like-btn" v-bind:class="{ 'liked': comment.action === 1 }" @click="like(comment)">
-          <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" class="like-icon"><path d="M0 0h24v24H0V0zm0 0h24v24H0V0z" fill="none"/>
-          <path id="like" d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm0 12l-4.34 4.34L12 14H3v-2l3-7h9v10zm4-12h4v12h-4z" fill="#797983"/></svg>
-          <!-- <object type="image/svg+xml" data="/css/icons/thumb-24px.svg" width="24" height="24" class="like-icon"></object> -->
+      <div class="avatar-comment-wrapper"></div>
+      <div class="main">
+        <div class="top-info">
+          <div class="username">{{ comment.user }}</div>
+          <div class="time-ago">2 час. назад</div>
+          <div class="reply-btn" @click="$emit('pushParent', comment)">ответить</div>
+          <div class="share-btn">
+            <object type="image/svg+xml" data="/css/icons/share-24px.svg" width="18" height="18" class="share-icon"></object>
+          </div>
+          <div class="block-btn">
+            <object type="image/svg+xml" data="/css/icons/block-24px.svg" width="18" height="18" class="block-icon"></object>
+          </div>
+          <div class="likes-container">
+            <div class="like-btn" v-bind:class="{ 'liked': comment.action === 1 }" @click="like(comment)">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" class="like-icon"><path d="M0 0h24v24H0V0zm0 0h24v24H0V0z" fill="none"/>
+              <path id="like" d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm0 12l-4.34 4.34L12 14H3v-2l3-7h9v10zm4-12h4v12h-4z" fill="#797983"/></svg>
+              <!-- <object type="image/svg+xml" data="/css/icons/thumb-24px.svg" width="24" height="24" class="like-icon"></object> -->
+            </div>
+            <div class="dislike-btn" v-bind:class="{ 'disliked': comment.action === -1 }" @click="dislike(comment)">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" class="dislike-icon"><path d="M0 0h24v24H0V0zm0 0h24v24H0V0z" fill="none"/>
+              <path id="dislike" d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm0 12l-4.34 4.34L12 14H3v-2l3-7h9v10zm4-12h4v12h-4z" fill="#797983"/></svg>
+              <!-- <object type="image/svg+xml" data="/css/icons/thumb-24px.svg" width="24" height="24" class="dislike-icon"></object> -->
+            </div>
+            <div class="likes-label" v-bind:class="{ 'green': comment.likes > 0, 'red': comment.likes < 0, }">{{ comment.likes }}</div>
+          </div>
         </div>
-        <div class="dislike-btn" v-bind:class="{ 'disliked': comment.action === -1 }" @click="dislike(comment)">
-          <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" class="dislike-icon"><path d="M0 0h24v24H0V0zm0 0h24v24H0V0z" fill="none"/>
-          <path id="dislike" d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm0 12l-4.34 4.34L12 14H3v-2l3-7h9v10zm4-12h4v12h-4z" fill="#797983"/></svg>
-          <!-- <object type="image/svg+xml" data="/css/icons/thumb-24px.svg" width="24" height="24" class="dislike-icon"></object> -->
+        <div class="comm-text">
+          {{ comment.text }}
         </div>
-        <div class="likes-label" v-bind:class="{ 'green': comment.likes > 0, 'red': comment.likes < 0, }">{{ comment.likes }}</div>
       </div>
-      </div>
-      <div class="comm-text">
-        {{ comment.text }}
-      </div>
-    </div>
     </div>
     <div v-if="comment.childs && comment.childs.length">
-      <CommentComponent  v-for="comment in comment.childs" :comment="comment" :key="comment.id"></CommentComponent>
+      <CommentComponent  v-for="comment in comment.childs" :comment="comment" :key="comment.id" @pushParent='pushParent'></CommentComponent>
     </div>
   </div>
 </template>
@@ -231,9 +231,14 @@ export default {
           }
         );
     },
+    pushParent(comment) {
+      window.location.href = "#comment-box";
+      this.$emit("pushParent", comment);
+    },
   },
   props: {
     comment: Object,
+    parent_comment: Object,
   },
 
 }
