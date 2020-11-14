@@ -14,7 +14,7 @@ class TestValuesSeeder extends Seeder
   {
     $comment = DB::table('comments')->insertGetId([
       'likes' => '11',
-      'text' => 'подумал, что наконец обратили внимание на баг с невозможностью применения песчаного ландшафта',
+      'text' => 'подумал, что наконец обратили внимание на баг с невозможностью применения песчаного ланшафта и ланшафта immortal',
       'user' => 'Jenny Wilson',
     ]);
 
@@ -28,7 +28,7 @@ class TestValuesSeeder extends Seeder
     $comment2 = DB::table('comments')->insertGetId([
       'parent_id' => $comment1,
       'likes' => '0',
-      'text' => 'Если воду настаивать в банке с мелко порубленной кожурой банана, и этим поливать, то вообще кучеряво будет.',
+      'text' => 'Если воду наставивать в банке с мелко порубленной кожурой банана, и этим поливать, то вообще кучеряво будет.',
       'user' => 'Robert Fox',
     ]);
   }

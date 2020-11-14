@@ -118,7 +118,7 @@ $projectBackground: #17171a;
         padding: 30px 0px 0px 45px;
         .comment-body {
           display: flex;
-          margin-bottom: 20px;
+          // margin-bottom: 20px;
           .avatar {
             float: left;
             flex-grow: 0;
