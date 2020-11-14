@@ -146,10 +146,13 @@ $red: #d42c2c;
 .first {
   padding: 30px 40px 30px 40px;
 }
+.nest-limit {
+  padding-left: 0;
+}
 </style>
 
 <template>
-  <div class="comment" v-bind:class="{ 'first': !comment.parent_id, 'nested': comment.parent_id, }">
+  <div class="comment" v-bind:class="{ 'first': !comment.parent_id, 'nested': (comment.parent_id && nestCount <= 5),'nest-limit': nestCount > 5}">
     <div class="comment-body">
       <div class="avatar">
         <img src="https://via.placeholder.com/60">
@@ -158,7 +161,7 @@ $red: #d42c2c;
       <div class="main">
         <div class="top-info">
           <div class="username">{{ comment.user }}</div>
-          <div class="time-ago">2 час. назад</div>
+          <div class="time-ago"><timeago :datetime="comment.created_at"></timeago></div>
           <div class="reply-btn" @click="$emit('pushParent', comment)">ответить</div>
           <div class="share-btn">
             <object type="image/svg+xml" data="/css/icons/share-24px.svg" width="18" height="18" class="share-icon"></object>
@@ -186,7 +189,7 @@ $red: #d42c2c;
       </div>
     </div>
     <div v-if="comment.childs && comment.childs.length">
-      <CommentComponent  v-for="comment in comment.childs" :comment="comment" :key="comment.id" @pushParent='pushParent'></CommentComponent>
+      <CommentComponent  v-for="comment in comment.childs" :comment="comment" :nestCount="nestCount + 1" :key="comment.id" @pushParent='pushParent'></CommentComponent>
     </div>
   </div>
 </template>
@@ -238,7 +241,8 @@ export default {
   },
   props: {
     comment: Object,
-    parent_comment: Object,
+    nestCount: Number,
+    parentComment: Object,
   },
 
 }

@@ -61,7 +61,7 @@ input:focus, textarea:focus, select:focus{
 <template>
   <div class="new-comment" id="comment-box">
     <div class="top">
-      <input type="text" size="40" class="input-name" v-model="name" placeholder="Ваш никнейм"><span class="reply-label" v-if="parent_comment.id">Ответ пользователю: <b>{{ parent_comment.user }}</b></span>
+      <input type="text" size="40" class="input-name" v-model="name" placeholder="Ваш никнейм"><span class="reply-label" v-if="parentComment.id">Ответ пользователю: <b>{{ parentComment.user }}</b></span>
     </div>
     <div class="main">
       <textarea name="comment" cols="40" rows="5" class="input-comment" v-model="text" placeholder="Ваш комментарий"></textarea>
@@ -74,7 +74,7 @@ input:focus, textarea:focus, select:focus{
 export default {
   name: "SendFormComponent",
   props: {
-    parent_comment: Object,
+    parentComment: Object,
   },
   data:() => ({
     name: "",
@@ -90,14 +90,13 @@ export default {
       this.formData = {
         name: this.name,
         text: this.text,
-        parent_id: this.parent_comment.id,
+        parent_id: this.parentComment.id,
       };
       axios
         .post("api/comments/post-comment", this.formData)
         .then(
           r => {
             this.$emit("updateComments");
-            this.name = "";
             this.text = "";
             this.parent = {};
           },

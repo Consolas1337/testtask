@@ -145,15 +145,15 @@ body {
         </div>
         <div class="sort-block">
           <div class="sort_btn">
-            <input id="sort_btn1" type="radio" name="radio" value="1">
+            <input id="sort_btn1" v-model="radio" @click="sortByPopular" type="radio" name="radio" value="1" checked>
             <label for="sort_btn1">Популярные</label>
           </div>
           <div class="sort_btn">
-            <input id="sort_btn2" type="radio" name="radio" value="2">
+            <input id="sort_btn2" v-model="radio" @click="sortByNew" type="radio" name="radio" value="2">
             <label for="sort_btn2">Новые</label>
           </div>
           <div class="sort_btn">
-            <input id="sort_btn3" type="radio" name="radio" value="3">
+            <input id="sort_btn3" v-model="radio" @click="sortByOld" type="radio" name="radio" value="3">
             <label for="sort_btn3">Старые</label>
           </div>
         </div>
@@ -165,6 +165,7 @@ body {
         <CommentComponent 
           v-for="comment in comments" 
           :comment="comment"
+          :nestCount="nestCount"
           :key="comment.id" 
           @reply="replyComment"
           @pushParent='replyComment'
@@ -172,7 +173,7 @@ body {
       </div>
       <SendFormComponent 
         @updateComments="getComments"
-        :parent_comment="parent_comment"
+        :parentComment="parentComment"
       ></SendFormComponent>
     </div>
   </div>
@@ -184,10 +185,12 @@ import SendFormComponent from "./SendFormComponent.vue"
 
   export default {
     data:() => ({
+      radio: 1,
       comments: [],
       comment: [],
       formData: [],
-      parent_comment: {},
+      parentComment: {},
+      nestCount: 0,
     }),
     methods: {
       getComments() {
@@ -206,13 +209,28 @@ import SendFormComponent from "./SendFormComponent.vue"
 
       },
       replyComment(data) {
-
-        this.parent_comment = data;
+        this.parentComment = data;
       },
-
+      sortByPopular() {
+        console.log("p");
+      },
+      sortByNew() {
+        console.log("n");
+        comments.forEach(element => {
+          
+        });
+        comments.sort(function(a,b){
+          return new Date(b.date) - new Date(a.date);
+        });
+        
+      },
+      sortByOld() {
+        console.log("o");
+      },
     },
     mounted() {
       this.getComments();
+      
     },
   components: {
     CommentComponent,

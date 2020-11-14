@@ -15,7 +15,7 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        $comments = Comments::where("parent_id", null)->with("childs.childs.childs.childs.childs")->get(); // FIXME
+        $comments = Comments::where("parent_id", null)->with("childs")->get();
         return response()->json(['data' => $comments], 200);
     }
 

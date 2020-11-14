@@ -9,7 +9,16 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import Main from './components/Main.vue';
+import VueTimeago from 'vue-timeago'
 
+
+Vue.use(VueTimeago, {
+    name: 'Timeago', 
+    locale: 'ru', 
+    locales: {
+      'ru': require('date-fns/locale/ru'),
+    }
+  })
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

@@ -31,6 +31,6 @@ class Comments extends Model
 
     public function childs()
     {
-        return $this->hasMany(self::class, 'parent_id');
+        return $this->hasMany(self::class, 'parent_id')->with("childs");
     }
 }
