@@ -167,13 +167,13 @@ body {
           :comment="comment"
           :nestCount="nestCount"
           :key="comment.id" 
-          @reply="replyComment"
           @pushParent='replyComment'
         ></CommentComponent>
       </div>
       <SendFormComponent 
         @updateComments="getComments"
-        :parentComment="parentComment"
+        @clearParent="clearParent"
+        v-bind:parentComment.sync="parentComment"
       ></SendFormComponent>
     </div>
   </div>
@@ -185,11 +185,11 @@ import SendFormComponent from "./SendFormComponent.vue"
 
   export default {
     data:() => ({
-      radio: 1,
+      radio: 0,
       comments: [],
       comment: [],
       formData: [],
-      parentComment: {},
+      parentComment: null,
       nestCount: 0,
     }),
     methods: {
@@ -205,10 +205,8 @@ import SendFormComponent from "./SendFormComponent.vue"
             }
           );
       },
-      onClickReplyButton() {
-
-      },
       replyComment(data) {
+        window.location.href = "#comment-box";
         this.parentComment = data;
       },
       sortByPopular(arr) {
@@ -221,7 +219,7 @@ import SendFormComponent from "./SendFormComponent.vue"
       },
       sortByNew(arr) {
         arr.sort(function(a,b){
-          return new Date(b.created_at) - new Date(a.created_at) ;
+          return new Date(b.created_at) - new Date(a.created_at);
         });
         arr.forEach(el => {
           this.sortByNew(el.childs);
@@ -229,7 +227,7 @@ import SendFormComponent from "./SendFormComponent.vue"
       },
       sortByOld(arr) {
         arr.sort(function(a,b){
-          return new Date(a.created_at) - new Date(b.created_at) ;
+          return new Date(a.created_at) - new Date(b.created_at);
         });
         arr.forEach(el => {
           this.sortByOld(el.childs);
@@ -238,8 +236,6 @@ import SendFormComponent from "./SendFormComponent.vue"
     },
     mounted() {
       this.getComments();
-      this.sortByPopular(this.comments);
-      
     },
   components: {
     CommentComponent,

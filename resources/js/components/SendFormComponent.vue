@@ -36,6 +36,7 @@ input:focus, textarea:focus, select:focus{
       font-size: 125%;
       color: #acacac;
       margin-left: 15px;
+      cursor: pointer;
       // $mainLight
     }
   }
@@ -61,7 +62,8 @@ input:focus, textarea:focus, select:focus{
 <template>
   <div class="new-comment" id="comment-box">
     <div class="top">
-      <input type="text" size="40" class="input-name" v-model="name" placeholder="Ваш никнейм"><span class="reply-label" v-if="parentComment.id">Ответ пользователю: <b>{{ parentComment.user }}</b></span>
+      <input type="text" size="40" class="input-name" v-model="name" placeholder="Ваш никнейм">
+      <span title="Удалить адресата" class="reply-label" v-if="parentComment" @click="$emit('update:parentComment', null)">Ответ пользователю: <b>{{ parentComment.user }}</b></span>
     </div>
     <div class="main">
       <textarea name="comment" cols="40" rows="5" class="input-comment" v-model="text" placeholder="Ваш комментарий"></textarea>

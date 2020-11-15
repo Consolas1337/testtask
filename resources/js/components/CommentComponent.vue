@@ -235,7 +235,9 @@ export default {
         );
     },
     pushParent(comment) {
-      window.location.href = "#comment-box";
+      if (this.nestCount===4) { // Уровень вложенности
+        comment = this.comment;
+      }
       this.$emit("pushParent", comment);
     },
   },

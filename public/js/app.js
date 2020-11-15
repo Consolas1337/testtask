@@ -2146,7 +2146,11 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     pushParent: function pushParent(comment) {
-      window.location.href = "#comment-box";
+      if (this.nestCount === 4) {
+        // Уровень вложенности
+        comment = this.comment;
+      }
+
       this.$emit("pushParent", comment);
     }
   },
@@ -2356,11 +2360,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      radio: 1,
+      radio: 0,
       comments: [],
       comment: [],
       formData: [],
-      parentComment: {},
+      parentComment: null,
       nestCount: 0
     };
   },
@@ -2374,8 +2378,8 @@ __webpack_require__.r(__webpack_exports__);
         console.log(e.data);
       });
     },
-    onClickReplyButton: function onClickReplyButton() {},
     replyComment: function replyComment(data) {
+      window.location.href = "#comment-box";
       this.parentComment = data;
     },
     sortByPopular: function sortByPopular(arr) {
@@ -2411,7 +2415,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getComments();
-    this.sortByPopular(this.comments);
   },
   components: {
     CommentComponent: _CommentComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -2430,6 +2433,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -7019,7 +7024,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap);", ""]);
 
 // module
-exports.push([module.i, "input:focus, textarea:focus, select:focus {\n  outline: none;\n}\n.new-comment .main .input-comment, .new-comment .top .input-name {\n  border: 0;\n  background-color: #2b2c32;\n  color: #acacac;\n  padding: 10px 15px;\n  font-family: \"Roboto\", sans-serif;\n  font-size: 125%;\n  margin-bottom: 10px;\n}\n.new-comment {\n  display: flex;\n  flex-direction: column;\n  margin: 20px 40px;\n}\n.new-comment .top .input-name {\n  width: 30%;\n}\n.new-comment .top .reply-label {\n  font-size: 125%;\n  color: #acacac;\n  margin-left: 15px;\n}\n.new-comment .main {\n  display: flex;\n  flex-direction: column;\n}\n.new-comment .main .input-comment {\n  width: 100%;\n}\n.new-comment .main .submit-btn {\n  background-color: #37ad6d;\n  border: none;\n  color: white;\n  padding: 16px 32px;\n  text-decoration: none;\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, "input:focus, textarea:focus, select:focus {\n  outline: none;\n}\n.new-comment .main .input-comment, .new-comment .top .input-name {\n  border: 0;\n  background-color: #2b2c32;\n  color: #acacac;\n  padding: 10px 15px;\n  font-family: \"Roboto\", sans-serif;\n  font-size: 125%;\n  margin-bottom: 10px;\n}\n.new-comment {\n  display: flex;\n  flex-direction: column;\n  margin: 20px 40px;\n}\n.new-comment .top .input-name {\n  width: 30%;\n}\n.new-comment .top .reply-label {\n  font-size: 125%;\n  color: #acacac;\n  margin-left: 15px;\n  cursor: pointer;\n}\n.new-comment .main {\n  display: flex;\n  flex-direction: column;\n}\n.new-comment .main .input-comment {\n  width: 100%;\n}\n.new-comment .main .submit-btn {\n  background-color: #37ad6d;\n  border: none;\n  color: white;\n  padding: 16px 32px;\n  text-decoration: none;\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -40869,7 +40874,7 @@ var render = function() {
             return _c("CommentComponent", {
               key: comment.id,
               attrs: { comment: comment, nestCount: _vm.nestCount },
-              on: { reply: _vm.replyComment, pushParent: _vm.replyComment }
+              on: { pushParent: _vm.replyComment }
             })
           }),
           1
@@ -40877,7 +40882,16 @@ var render = function() {
         _vm._v(" "),
         _c("SendFormComponent", {
           attrs: { parentComment: _vm.parentComment },
-          on: { updateComments: _vm.getComments }
+          on: {
+            updateComments: _vm.getComments,
+            clearParent: _vm.clearParent,
+            "update:parentComment": function($event) {
+              _vm.parentComment = $event
+            },
+            "update:parent-comment": function($event) {
+              _vm.parentComment = $event
+            }
+          }
         })
       ],
       1
@@ -40949,11 +40963,24 @@ var render = function() {
             }
           }
         }),
-        _vm.parentComment.id
-          ? _c("span", { staticClass: "reply-label" }, [
-              _vm._v("Ответ пользователю: "),
-              _c("b", [_vm._v(_vm._s(_vm.parentComment.user))])
-            ])
+        _vm._v(" "),
+        _vm.parentComment
+          ? _c(
+              "span",
+              {
+                staticClass: "reply-label",
+                attrs: { title: "Удалить адресата" },
+                on: {
+                  click: function($event) {
+                    return _vm.$emit("update:parentComment", null)
+                  }
+                }
+              },
+              [
+                _vm._v("Ответ пользователю: "),
+                _c("b", [_vm._v(_vm._s(_vm.parentComment.user))])
+              ]
+            )
           : _vm._e()
       ]),
       _vm._v(" "),
