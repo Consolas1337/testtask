@@ -2378,22 +2378,40 @@ __webpack_require__.r(__webpack_exports__);
     replyComment: function replyComment(data) {
       this.parentComment = data;
     },
-    sortByPopular: function sortByPopular() {
-      console.log("p");
-    },
-    sortByNew: function sortByNew() {
-      console.log("n");
-      comments.forEach(function (element) {});
-      comments.sort(function (a, b) {
-        return new Date(b.date) - new Date(a.date);
+    sortByPopular: function sortByPopular(arr) {
+      var _this2 = this;
+
+      arr.sort(function (a, b) {
+        return b.likes - a.likes;
+      });
+      arr.forEach(function (el) {
+        _this2.sortByPopular(el.childs);
       });
     },
-    sortByOld: function sortByOld() {
-      console.log("o");
+    sortByNew: function sortByNew(arr) {
+      var _this3 = this;
+
+      arr.sort(function (a, b) {
+        return new Date(b.created_at) - new Date(a.created_at);
+      });
+      arr.forEach(function (el) {
+        _this3.sortByNew(el.childs);
+      });
+    },
+    sortByOld: function sortByOld(arr) {
+      var _this4 = this;
+
+      arr.sort(function (a, b) {
+        return new Date(a.created_at) - new Date(b.created_at);
+      });
+      arr.forEach(function (el) {
+        _this4.sortByOld(el.childs);
+      });
     }
   },
   mounted: function mounted() {
     this.getComments();
+    this.sortByPopular(this.comments);
   },
   components: {
     CommentComponent: _CommentComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -2515,7 +2533,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.text = "";
         _this.parent = {};
       }, function (e) {
-        console.log(e.data);
+        console.log(e.data.message);
       });
     }
   }
@@ -40766,7 +40784,9 @@ var render = function() {
                 },
                 domProps: { checked: _vm._q(_vm.radio, "1") },
                 on: {
-                  click: _vm.sortByPopular,
+                  click: function($event) {
+                    return _vm.sortByPopular(_vm.comments)
+                  },
                   change: function($event) {
                     _vm.radio = "1"
                   }
@@ -40796,7 +40816,9 @@ var render = function() {
                 },
                 domProps: { checked: _vm._q(_vm.radio, "2") },
                 on: {
-                  click: _vm.sortByNew,
+                  click: function($event) {
+                    return _vm.sortByNew(_vm.comments)
+                  },
                   change: function($event) {
                     _vm.radio = "2"
                   }
@@ -40824,7 +40846,9 @@ var render = function() {
                 },
                 domProps: { checked: _vm._q(_vm.radio, "3") },
                 on: {
-                  click: _vm.sortByOld,
+                  click: function($event) {
+                    return _vm.sortByOld(_vm.comments)
+                  },
                   change: function($event) {
                     _vm.radio = "3"
                   }

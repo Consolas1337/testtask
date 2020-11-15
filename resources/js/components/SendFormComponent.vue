@@ -101,7 +101,7 @@ export default {
             this.parent = {};
           },
           e => {
-            console.log(e.data);
+            console.log(e.data.message);
           },
       );
     },

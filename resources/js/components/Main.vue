@@ -145,15 +145,15 @@ body {
         </div>
         <div class="sort-block">
           <div class="sort_btn">
-            <input id="sort_btn1" v-model="radio" @click="sortByPopular" type="radio" name="radio" value="1" checked>
+            <input id="sort_btn1" v-model="radio" @click="sortByPopular(comments)" type="radio" name="radio" value="1" checked>
             <label for="sort_btn1">Популярные</label>
           </div>
           <div class="sort_btn">
-            <input id="sort_btn2" v-model="radio" @click="sortByNew" type="radio" name="radio" value="2">
+            <input id="sort_btn2" v-model="radio" @click="sortByNew(comments)" type="radio" name="radio" value="2">
             <label for="sort_btn2">Новые</label>
           </div>
           <div class="sort_btn">
-            <input id="sort_btn3" v-model="radio" @click="sortByOld" type="radio" name="radio" value="3">
+            <input id="sort_btn3" v-model="radio" @click="sortByOld(comments)" type="radio" name="radio" value="3">
             <label for="sort_btn3">Старые</label>
           </div>
         </div>
@@ -211,25 +211,34 @@ import SendFormComponent from "./SendFormComponent.vue"
       replyComment(data) {
         this.parentComment = data;
       },
-      sortByPopular() {
-        console.log("p");
-      },
-      sortByNew() {
-        console.log("n");
-        comments.forEach(element => {
-          
+      sortByPopular(arr) {
+        arr.sort(function(a,b){
+          return b.likes - a.likes;
         });
-        comments.sort(function(a,b){
-          return new Date(b.date) - new Date(a.date);
+        arr.forEach(el => {
+          this.sortByPopular(el.childs);
         });
-        
       },
-      sortByOld() {
-        console.log("o");
+      sortByNew(arr) {
+        arr.sort(function(a,b){
+          return new Date(b.created_at) - new Date(a.created_at) ;
+        });
+        arr.forEach(el => {
+          this.sortByNew(el.childs);
+        });
+      },
+      sortByOld(arr) {
+        arr.sort(function(a,b){
+          return new Date(a.created_at) - new Date(b.created_at) ;
+        });
+        arr.forEach(el => {
+          this.sortByOld(el.childs);
+        });
       },
     },
     mounted() {
       this.getComments();
+      this.sortByPopular(this.comments);
       
     },
   components: {
