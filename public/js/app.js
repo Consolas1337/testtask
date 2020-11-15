@@ -2354,7 +2354,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2365,15 +2364,39 @@ __webpack_require__.r(__webpack_exports__);
       comment: [],
       formData: [],
       parentComment: null,
-      nestCount: 0
+      nestCount: 0,
+      rawComments: []
     };
   },
   methods: {
-    getComments: function getComments() {
+    qwe: function qwe(comm) {
       var _this = this;
 
+      comm.childs = this.rawComments.filter(function (comment) {
+        return comment.parent_id === comm.id;
+      });
+      this.rawComments = this.rawComments.filter(function (x) {
+        return !comm.childs.includes(x);
+      });
+      comm.childs.forEach(function (el) {
+        _this.qwe(el, comm);
+      });
+    },
+    getComments: function getComments() {
+      var _this2 = this;
+
       axios.get("api/comments/get-all").then(function (r) {
-        _this.comments = r.data.data;
+        _this2.rawComments = r.data.data;
+        _this2.comments = _this2.rawComments.filter(function (comment) {
+          return comment.parent_id === null;
+        });
+        _this2.rawComments = _this2.rawComments.filter(function (x) {
+          return !_this2.comments.includes(x);
+        });
+
+        _this2.comments.forEach(function (el) {
+          _this2.qwe(el);
+        });
       }, function (e) {
         console.log(e.data);
       });
@@ -2383,33 +2406,33 @@ __webpack_require__.r(__webpack_exports__);
       this.parentComment = data;
     },
     sortByPopular: function sortByPopular(arr) {
-      var _this2 = this;
+      var _this3 = this;
 
       arr.sort(function (a, b) {
         return b.likes - a.likes;
       });
       arr.forEach(function (el) {
-        _this2.sortByPopular(el.childs);
+        _this3.sortByPopular(el.childs);
       });
     },
     sortByNew: function sortByNew(arr) {
-      var _this3 = this;
+      var _this4 = this;
 
       arr.sort(function (a, b) {
         return new Date(b.created_at) - new Date(a.created_at);
       });
       arr.forEach(function (el) {
-        _this3.sortByNew(el.childs);
+        _this4.sortByNew(el.childs);
       });
     },
     sortByOld: function sortByOld(arr) {
-      var _this4 = this;
+      var _this5 = this;
 
       arr.sort(function (a, b) {
         return new Date(a.created_at) - new Date(b.created_at);
       });
       arr.forEach(function (el) {
-        _this4.sortByOld(el.childs);
+        _this5.sortByOld(el.childs);
       });
     }
   },
@@ -2433,6 +2456,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2529,14 +2558,21 @@ __webpack_require__.r(__webpack_exports__);
 
       this.formData = {
         name: this.name,
-        text: this.text,
-        parent_id: this.parentComment.id
+        text: this.text
       };
+
+      if (this.parentComment) {
+        this.formData = _objectSpread(_objectSpread({}, this.formData), {}, {
+          parent_id: this.parentComment.id
+        });
+      }
+
       axios.post("api/comments/post-comment", this.formData).then(function (r) {
         _this.$emit("updateComments");
 
         _this.text = "";
         _this.parent = {};
+        _this.formData = {};
       }, function (e) {
         console.log(e.data.message);
       });
@@ -40884,7 +40920,6 @@ var render = function() {
           attrs: { parentComment: _vm.parentComment },
           on: {
             updateComments: _vm.getComments,
-            clearParent: _vm.clearParent,
             "update:parentComment": function($event) {
               _vm.parentComment = $event
             },

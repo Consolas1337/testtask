@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\DB;
 use App\Models\Comments;
 use Validator;
 
@@ -15,7 +16,7 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        $comments = Comments::where("parent_id", null)->with("childs")->get();
+        $comments = Comments::all();
         return response()->json(['data' => $comments], 200);
     }
 

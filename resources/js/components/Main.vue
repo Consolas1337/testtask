@@ -190,14 +190,27 @@ import SendFormComponent from "./SendFormComponent.vue"
       formData: [],
       parentComment: null,
       nestCount: 0,
+      rawComments: [],
     }),
     methods: {
+      qwe(comm) {
+        comm.childs = this.rawComments.filter(comment => comment.parent_id === comm.id);
+        this.rawComments = this.rawComments.filter(x => !comm.childs.includes(x));
+        comm.childs.forEach(el => {
+          this.qwe(el, comm)
+        });
+      },
       getComments() {
         axios
           .get("api/comments/get-all")
           .then(
             r => {
-              this.comments = r.data.data;
+              this.rawComments = r.data.data;
+              this.comments = this.rawComments.filter(comment => comment.parent_id === null);
+              this.rawComments = this.rawComments.filter(x => !this.comments.includes(x));
+              this.comments.forEach(el => {
+                this.qwe(el);
+              });
             },
             e => {
               console.log(e.data);

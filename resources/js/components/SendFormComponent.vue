@@ -92,8 +92,10 @@ export default {
       this.formData = {
         name: this.name,
         text: this.text,
-        parent_id: this.parentComment.id,
       };
+      if (this.parentComment) {
+        this.formData = {...this.formData, parent_id: this.parentComment.id};
+      }
       axios
         .post("api/comments/post-comment", this.formData)
         .then(
@@ -101,6 +103,7 @@ export default {
             this.$emit("updateComments");
             this.text = "";
             this.parent = {};
+            this.formData = {};
           },
           e => {
             console.log(e.data.message);
