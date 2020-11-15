@@ -172,7 +172,6 @@ body {
       </div>
       <SendFormComponent 
         @updateComments="getComments"
-        @clearParent="clearParent"
         v-bind:parentComment.sync="parentComment"
       ></SendFormComponent>
     </div>
